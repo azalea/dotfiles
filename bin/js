@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+if [ "$1" = "" ] ; then
+  exec Jekyll serve
+else
+  exec Jekyll serve "$1"
+fi

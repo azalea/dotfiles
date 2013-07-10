@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 #
 # bootstrap installs things.
+#
+# https://github.com/holman/dotfiles/blob/master/script/bootstrap
 
 DOTFILES_ROOT="`pwd`"
 
@@ -53,11 +55,19 @@ install_dotfiles () {
   overwrite_all=false
   backup_all=false
   skip_all=false
+  
+  info $DOTFILES_ROOT
 
   for source in `find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink`
   do
     dest="$HOME/.`basename \"${source%.*}\"`"
 
+    info '===source==='
+    info $source
+    info '===dest==='
+    info $dest
+    info '===enddest==='
+    info '===install===='
     if [ -f $dest ] || [ -d $dest ]
     then
 

@@ -5,4 +5,5 @@
 set -e
 
 # use -iru to search directories ack usually ignores (like .git)
+# ack: command not found? brew install ack
 ack -i $1
