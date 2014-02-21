@@ -1,10 +1,10 @@
 alias reload!='. ~/.zshrc'
 
-#### BEGIN: Touch To Do Aliases ####
+#### BEGIN: Touch To-Do Aliases ####
 
-TTDDIR=~/Dropbox/Apps/Touch\ To\ Do
+TTDDIR=~/Dropbox/Apps/Touch\ To-Do
 
-# Add a single Touch To Do item. Spaces are welcome in item descriptions.
+# Add a single Touch To-Do item. Spaces are welcome in item descriptions.
 # If the item description has a leading \!, it is an important item.
 td () {
     if (( $#==0 ))
@@ -14,7 +14,7 @@ td () {
     fi
 }
 
-# Add multiple Touch To Do items, separated by space.
+# Add multiple Touch To-Do items, separated by space.
 # Thus, if you want spaces in an item, add quotes to its description, like "Say hello world"
 # Also, you need to add quotes to the description of important items. 
 ttd () {
@@ -27,7 +27,7 @@ ttd () {
     fi
 }
 
-# Add multiple Touch To Do important! items. 
+# Add multiple Touch To-Do important! items. 
 ttd! () {
     if (( $#==0 ))
         then echo usage: ttd! description1 description2 ...
@@ -41,10 +41,10 @@ ttd! () {
    fi
 }
 
-# View Touch To Do item list
-alias ttdv='ls $TTDDIR | grep -v "Icon*"'
+# View Touch To-Do item list
+alias ttdv='ls -tc1 $TTDDIR | grep -v "Icon*"'
 
-# Go to Touch To Do folder
+# Go to Touch To-Do folder
 alias ttdg='cd $TTDDIR'
 
-#### END: Touch To Do Aliases #### 
+#### END: Touch To-Do Aliases #### 
