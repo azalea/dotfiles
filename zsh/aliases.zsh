@@ -1,5 +1,15 @@
 alias reload!='. ~/.zshrc'
 
+zz () {
+    if (( $#==0 ))
+        then sleep 1200; 
+    else
+        sleep $(($* * 60)); 
+    fi
+    osascript -e 'display notification "赶快走开" with title "休息时间"'
+}
+
+
 #### BEGIN: Touch To-Do Aliases ####
 
 TTDDIR=~/Dropbox/Apps/Touch\ To-Do
