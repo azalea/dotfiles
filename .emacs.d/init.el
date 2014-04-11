@@ -61,9 +61,11 @@
 	    (jedi:ac-setup)
             (local-set-key "\C-cd" 'jedi:show-doc)
             ;; (local-set-key (kbd "M-SPC") 'jedi:complete)
-            ;; (local-set-key (kbd "M-.") 'jedi:goto-definition)))
-(setq jedi:complete-on-dot t) 
+            ;; (local-set-key (kbd "M-.") 'jedi:goto-definition)
+          )
+)
 
+(setq jedi:complete-on-dot t)
 
 ;; Flymake settings for Python
 (defun flymake-python-init ()
