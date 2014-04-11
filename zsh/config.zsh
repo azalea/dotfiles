@@ -1,3 +1,5 @@
+export PYTHONPATH=$HOME/svn/zhaorong/ng_utils/trunk:$HOME/Dropbox/class/bioinformaticsAlgorithms
+
 if [[ -n $SSH_CONNECTION ]]; then
   export PS1='%m:%3~$(git_info_for_prompt)%# '
 else

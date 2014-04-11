@@ -1,1 +1,6 @@
 git/gitconfig.symlink
+.emacs.d/.python-environments/
+.emacs.d/ac-comphist.dat
+.emacs.d/auto-save-list/
+.emacs.d/elpa/
+.emacs.d/url/

@@ -1,12 +1,12 @@
 ;; Requisites: Emacs >= 24
 (require 'package)
 (package-initialize)
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
+;; (add-to-list 'package-archives
+;; 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+;; (add-to-list 'package-archives
+;; 	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
 ;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t) 
-(package-refresh-contents)
+;; (package-refresh-contents)
 
 ;; (defun install-if-needed (package)
 ;;   (unless (package-installed-p package)
@@ -14,10 +14,11 @@
 
 ;; ;; make more packages available with the package installer
 ;; (setq to-install
-;;       '(python-mode magit yasnippet jedi auto-complete autopair find-file-in-repository org))
+;;       '(python-mode magit yasnippet jedi auto-complete autopair find-file-in-repository org zenburn-theme))
 
 ;; (mapc 'install-if-needed to-install)
 
+(load-theme 'zenburn t)
 
 (require 'magit)
 (global-set-key "\C-xg" 'magit-status)
@@ -28,7 +29,6 @@
 (require 'yasnippet)
 
 (global-set-key [f7] 'find-file-in-repository)
-
 
 ; auto-complete mode extra settings
 (setq
@@ -60,8 +60,10 @@
 	    (jedi:setup)
 	    (jedi:ac-setup)
             (local-set-key "\C-cd" 'jedi:show-doc)
-            (local-set-key (kbd "M-SPC") 'jedi:complete)
-            (local-set-key (kbd "M-.") 'jedi:goto-definition)))
+            ;; (local-set-key (kbd "M-SPC") 'jedi:complete)
+            ;; (local-set-key (kbd "M-.") 'jedi:goto-definition)))
+(setq jedi:complete-on-dot t) 
+
 
 ;; Flymake settings for Python
 (defun flymake-python-init ()
@@ -129,7 +131,6 @@
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
-
 
 
 ; Source: http://www.emacswiki.org/emacs/CommentingCode

@@ -6,7 +6,7 @@ dotfiles
 run this:
 
 ```sh
-git clone git@github.com:pala/dotfiles.git ~/.dotfiles
+git clone https://github.com/azalea/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh
 ```
