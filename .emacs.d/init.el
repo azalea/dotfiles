@@ -14,11 +14,9 @@
 
 ;; ;; make more packages available with the package installer
 ;; (setq to-install
-;;       '(python-mode magit yasnippet jedi auto-complete autopair find-file-in-repository org zenburn-theme))
+;;       '(python-mode magit yasnippet jedi auto-complete autopair find-file-in-repository org zenburn-theme color-theme-sanityinc-tomorrow))
 
 ;; (mapc 'install-if-needed to-install)
-
-(load-theme 'zenburn t)
 
 (require 'magit)
 (global-set-key "\C-xg" 'magit-status)
@@ -149,3 +147,18 @@
     (comment-or-uncomment-region (line-beginning-position) (line-end-position))
     (comment-dwim arg)))
 (global-set-key "\M-;" 'comment-dwim-line)
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-eighties)))
+ '(custom-safe-themes (quote ("628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
