@@ -1,4 +1,7 @@
-export PYTHONPATH=$HOME/svn/zhaorong/ng_utils/trunk:$HOME/Dropbox/class/bioinformaticsAlgorithms
+export PYTHONPATH=$HOME/svn/zhaorong/ng_utils/trunk:$HOME/Dropbox/class/bioinformaticsAlgorithms:$HOME/Dropbox/Projects
+export TERM=xterm-256color
+
+source /usr/local/bin/virtualenvwrapper.sh
 
 if [[ -n $SSH_CONNECTION ]]; then
   export PS1='%m:%3~$(git_info_for_prompt)%# '

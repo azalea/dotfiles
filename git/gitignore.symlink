@@ -13,3 +13,6 @@
 
 # emacs autosave file
 \#*#
+
+# python compiled
+*.pyc
