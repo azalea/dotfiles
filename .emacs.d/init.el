@@ -1,137 +1,55 @@
 ;; Requisites: Emacs >= 24
+
+;; INSTALL PACKAGES
+;; --------------------------------------
+
 (require 'package)
+(add-to-list 'package-archives
+	     '("melpa" . "http://melpa.org/packages/") t)
+
 (package-initialize)
-;; (add-to-list 'package-archives
-;; 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
-;; (add-to-list 'package-archives
-;; 	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
-;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t) 
-;; (package-refresh-contents)
+(package-refresh-contents)
 
-;; (defun install-if-needed (package)
-;;   (unless (package-installed-p package)
-;;     (package-install package)))
+(defvar myPackages
+  '(better-defaults
+    ein
+    elpy
+    flycheck
+    py-autopep8
+    yasnippet
+    zenburn-theme
+    color-theme-sanityinc-tomorrow))
 
-;; ;; make more packages available with the package installer
-;; (setq to-install
-;;       '(python-mode magit yasnippet jedi auto-complete autopair find-file-in-repository org zenburn-theme color-theme-sanityinc-tomorrow))
+(mapc #'(lambda (package)
+	  (unless (package-installed-p package)
+	    (package-install package)))
+            myPackages)
 
-;; (mapc 'install-if-needed to-install)
+;; BASIC CUSTOMIZATION
+;; --------------------------------------
 
-(require 'magit)
-(global-set-key "\C-xg" 'magit-status)
+(setq inhibit-startup-message t) ;; hide the startup message
+(global-linum-mode t) ;; enable line numbers globally
+(windmove-default-keybindings 'shift) ;; use shift to move around windows
+(setq visible-bell nil)  ;; Turn beep off
+(global-hi-lock-mode t) ;; C-x w h REGEX to highlight, C-x w r to unhighlight
 
-(require 'auto-complete)
-(require 'autopair)
-(require 'flymake)
+;; PYTHON CONFIGURATION
+;; --------------------------------------
+
+(elpy-enable)
+(elpy-use-ipython)
+
+;; use flycheck not flymake with elpy
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+;; enable autopep8 formatting on save
+(require 'py-autopep8)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+
 (require 'yasnippet)
-
-(global-set-key [f7] 'find-file-in-repository)
-
-; auto-complete mode extra settings
-(setq
- ac-auto-start 2
- ac-override-local-map nil
- ac-use-menu-map t
- ac-candidate-limit 20)
-
-;; ;; Python mode settings
-(require 'python-mode)
-(add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-(setq py-electric-colon-active t)
-(add-hook 'python-mode-hook 'autopair-mode)
-(add-hook 'python-mode-hook 'yas-minor-mode)
-
-;; ;; Jedi settings
-(require 'jedi)
-;; It's also required to run "pip install --user jedi" and "pip
-;; install --user epc" to get the Python side of the library work
-;; correctly.
-;; With the same interpreter you're using.
-
-;; if you need to change your python intepreter, if you want to change it
-;; (setq jedi:server-command
-;;       '("python2" "/home/andrea/.emacs.d/elpa/jedi-0.1.2/jediepcserver.py"))
-
-(add-hook 'python-mode-hook
-	  (lambda ()
-	    (jedi:setup)
-	    (jedi:ac-setup)
-            (local-set-key "\C-cd" 'jedi:show-doc)
-            ;; (local-set-key (kbd "M-SPC") 'jedi:complete)
-            ;; (local-set-key (kbd "M-.") 'jedi:goto-definition)
-          )
-)
-
-(setq jedi:complete-on-dot t)
-
-;; Flymake settings for Python
-(defun flymake-python-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                     'flymake-create-temp-inplace))
-         (local-file (file-relative-name
-                      temp-file
-                      (file-name-directory buffer-file-name))))
-    (list "epylint" (list local-file))))
-
-(defun flymake-activate ()
-  "Activates flymake when real buffer and you have write access"
-  (if (and
-       (buffer-file-name)
-       (file-writable-p buffer-file-name))
-      (progn
-        (flymake-mode t)
-        ;; this is necessary since there is no flymake-mode-hook...
-        (local-set-key (kbd "C-c n") 'flymake-goto-next-error)
-        (local-set-key (kbd "C-c p") 'flymake-goto-prev-error))))
-
-(defun ca-flymake-show-help ()
-  (when (get-char-property (point) 'flymake-overlay)
-    (let ((help (get-char-property (point) 'help-echo)))
-      (if help (message "%s" help)))))
-
-(add-hook 'post-command-hook 'ca-flymake-show-help)
-
-
-(add-to-list 'flymake-allowed-file-name-masks
-             '("\\.py\\'" flymake-python-init))
-
-(add-hook 'python-mode-hook 'flymake-activate)
-(add-hook 'python-mode-hook 'auto-complete-mode)
-
-(ido-mode t)
-
-;; -------------------- extra nice things --------------------
-;; use shift to move around windows
-(windmove-default-keybindings 'shift)
-(show-paren-mode t)
- ; Turn beep off
-(setq visible-bell nil)
-
-;; Orgmode settings
-; Must have org-mode loaded before we can configure org-babel
-(require 'org-install)
-
-; Some initial langauges we want org-babel to support
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '(
-   (sh . t)
-   (python . t)
-   (R . t)
-   (ruby . t)
-   (ditaa . t)
-   (dot . t)
-   (octave . t)
-   (sqlite . t)
-   (perl . t)
-   ))
-
-; Add short cut keys for the org-agenda
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-
 
 ; Source: http://www.emacswiki.org/emacs/CommentingCode
 ;; Original idea from
@@ -147,7 +65,6 @@
     (comment-or-uncomment-region (line-beginning-position) (line-end-position))
     (comment-dwim arg)))
 (global-set-key "\M-;" 'comment-dwim-line)
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
