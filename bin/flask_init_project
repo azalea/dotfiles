@@ -1,0 +1,80 @@
+## Create a flask application structure with sqlalchemy
+
+# ref:
+# https://exploreflask.com/en/latest/organizing.html
+# http://flask.pocoo.org/docs/0.10/patterns/packages/#larger-applications
+# http://flask.pocoo.org/docs/0.10/patterns/sqlalchemy/#declarative
+
+if [[ $# > 0 ]]; then
+    # user provides app name
+    app_name=$1
+else
+    # use directory basename as default app name
+    app_name="$(basename `pwd`)"
+fi
+
+echo "DEBUG = False" > config.py
+
+touch requirements.txt
+
+mkdir instance
+echo "SECRET_KEY = 'top secret'
+DEBUG = False
+" > instance/config.py
+
+mkdir $app_name
+cd $app_name
+
+
+echo "from flask import Flask
+app = Flask(__name__, instance_relative_config=True)
+app.config.from_object('config')
+app.config.from_pyfile('config.py')
+
+import $app_name.views
+" >  __init__.py
+
+
+echo "from $app_name import app
+
+@app.route('/')
+def index():
+    return 'Hello World!'
+" > views.py
+
+echo "from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+
+engine = create_engine('sqlite:///$app_name.db', convert_unicode=True)
+db_session = scoped_session(sessionmaker(autocommit=False,
+                                         autoflush=False,
+                                         bind=engine))
+Base = declarative_base()
+Base.query = db_session.query_property()
+
+
+def init_db():
+    # import all modules here that might define models so that
+    # they will be registered properly on the metadata.  Otherwise
+    # you will have to import them first before calling init_db()
+    import $app_name.models
+    Base.metadata.create_all(bind=engine)
+" > database.py
+
+
+echo "from sqlalchemy import Column, Integer, String
+from .database import Base
+" > models.py
+
+
+mkdir static
+mkdir templates
+cd ..
+
+echo "from $app_name import app
+from $app_name.database import init_db
+
+init_db()
+app.run()
+" > runserer.py
