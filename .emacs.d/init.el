@@ -4,8 +4,8 @@
 ;; --------------------------------------
 
 (require 'package)
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.org/packages/") t)
+;; (add-to-list 'package-archives
+;; 	     '("melpa" . "http://melpa.org/packages/") t)
 
 (package-initialize)
 (package-refresh-contents)
@@ -53,7 +53,7 @@
 
 (let ((default-directory  "~/.emacs.d/"))
     (normal-top-level-add-subdirs-to-load-path))
-(load "ess-site")
+;; (load "ess-site")
 
 ; Source: http://www.emacswiki.org/emacs/CommentingCode
 ;; Original idea from
