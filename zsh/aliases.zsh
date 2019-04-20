@@ -1,4 +1,5 @@
 alias reload!='. ~/.zshrc'
+alias python='python3'
 
 zz () {
     if (( $#==0 ))
