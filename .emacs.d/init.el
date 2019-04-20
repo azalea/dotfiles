@@ -4,8 +4,8 @@
 ;; --------------------------------------
 
 (require 'package)
-;; (add-to-list 'package-archives
-;; 	     '("melpa" . "http://melpa.org/packages/") t)
+ (add-to-list 'package-archives
+ 	     '("melpa" . "http://melpa.org/packages/") t)
 
 (package-initialize)
 (package-refresh-contents)
@@ -30,7 +30,7 @@
 
 (setq inhibit-startup-message t) ;; hide the startup message
 (global-linum-mode t) ;; enable line numbers globally
-(windmove-default-keybindings 'shift) ;; use shift to move around windows
+(windmove-default-keybindings) ;; use shift to move around windows
 (setq visible-bell nil)  ;; Turn beep off
 (global-hi-lock-mode t) ;; C-x w h REGEX to highlight, C-x w r to unhighlight
 
@@ -38,7 +38,6 @@
 ;; --------------------------------------
 
 (elpy-enable)
-(elpy-use-ipython)
 
 ;; use flycheck not flymake with elpy
 (when (require 'flycheck nil t)
@@ -53,7 +52,6 @@
 
 (let ((default-directory  "~/.emacs.d/"))
     (normal-top-level-add-subdirs-to-load-path))
-;; (load "ess-site")
 
 ; Source: http://www.emacswiki.org/emacs/CommentingCode
 ;; Original idea from
