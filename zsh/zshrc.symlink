@@ -5,8 +5,10 @@ export ZSH=$HOME/.dotfiles
 export PROJECTS=~/Dropbox/Projects
 
 # gem path, for jekyll
+# heraku
+# lavarel
 export GEM_HOME=$HOME/gems
-export PATH=$HOME/gems/bin:$PATH
+export PATH=$HOME/gems/bin:/usr/local/heroku/bin:$HOME/.composer/vendor/bin:$PATH
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
@@ -43,5 +45,8 @@ done
 
 unset config_files
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+# Aliases
+alias python=python3.11
+alias kimmy='ssh -L 3389:kimmy:3389 zhaorong@gitlab.softgenetics.com -N'
+alias coco='ssh -L 3389:Coco:3389 zhaorong@gitlab.softgenetics.com -N'
+alias ruby='ssh -L 8890:192.168.1.193:3389 zhaorong@gitlab.softgenetics.com -N'
