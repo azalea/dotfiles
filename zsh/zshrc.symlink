@@ -2,7 +2,7 @@
 export ZSH=$HOME/.dotfiles
 
 # your project folder that we can `c [tab]` to
-export PROJECTS=~/Dropbox/Projects
+export PROJECTS=~/projects
 
 # gem path, for jekyll
 # heraku
@@ -46,7 +46,5 @@ done
 unset config_files
 
 # Aliases
-alias python=python3.11
-alias kimmy='ssh -L 3389:kimmy:3389 zhaorong@gitlab.softgenetics.com -N'
-alias coco='ssh -L 3389:Coco:3389 zhaorong@gitlab.softgenetics.com -N'
-alias ruby='ssh -L 8890:192.168.1.193:3389 zhaorong@gitlab.softgenetics.com -N'
+alias python=python3.14
+export PATH="$HOME/.local/bin:$PATH"
